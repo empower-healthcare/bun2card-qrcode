@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="jp.xaas.bun2card.plugin.BarcodeReader" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>BarcodeReader</name>
+  <js-module name="BarcodeReader" src="www/BarcodeReader.js">
+    <clobbers target="cordova.plugins.BarcodeReader" />
+  </js-module>
+  <engines>
+    <engine name="cordova" version=">=3.0.0" />
+  </engines>
+
+  <!-- ios -->
+  <platform name="android">
+    <config-file target="config.xml" parent="/*">
+      <feature name="BarcodeReaderPlugin">
+        <param name="android-package" value="jp.xaas.bun2card.plugin.barcodereader.BarcodeReaderPlugin" />
+      </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <activity android:name="jp.xaas.bun2card.plugin.barcodereader.BarcodeReaderActivity" android:screenOrientation="user" android:windowSoftInputMode="stateAlwaysHidden">
+        <intent-filter>
+          <action android:name="jp.xaas.bun2card.plugin.barcodereader.SCAN" />
+          <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+      </activity>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.CAMERA" />
+      <uses-permission android:name="android.permission.FLASHLIGHT" />
+      <!-- Not required to allow users to work around this -->
+      <uses-feature android:name="android.hardware.camera" android:required="false" />
+    </config-file>
+    <source-file src="src/android/libs/zxing-core-3.1.0.jar" target-dir="libs"/>
+    <source-file src="src/android/libs/zxing-javase-3.1.0.jar" target-dir="libs"/>
+    <source-file src="src/android/libs/barcodecapture.jar" target-dir="libs"/>
+    <source-file src="src/android/jp/xaas/bun2card/plugin/barcodereader/BarcodeReaderPlugin.java" target-dir="src/jp/xaas/bun2card/plugin/barcodereader"/>
+
+    <source-file src="src/android/res/layout/cdv_br_activity_scan.xml" target-dir="res/layout"/>
+    <source-file src="src/android/res/drawable/cdv_br_button_base1.xml" target-dir="res/drawable"/>
+    <source-file src="src/android/res/drawable/cdv_br_button_base2.xml" target-dir="res/drawable"/>
+    <source-file src="src/android/res/drawable/cdv_br_message.xml" target-dir="res/drawable"/>
+    <source-file src="src/android/res/drawable/cdv_br_rectangle.xml" target-dir="res/drawable"/>
+    <config-file target="res/values/strings.xml" parent="/resources">
+      <string name="cdv_br_msg_textMessage">QRコードをカメラに向けてください</string>
+      <string name="cdv_br_btn_cancel">キャンセル</string>
+    </config-file>
+  </platform>
+
+  <!-- ios -->
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="BarcodeReaderPlugin">
+        <param name="ios-package" value="PGMyBarcodeReader" />
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/PGMyBarcodeReader.h" />
+    <header-file src="src/ios/QRViewController3.h" />
+    <source-file src="src/ios/PGMyBarcodeReader.m" />
+    <source-file src="src/ios/QRViewController3.m" />
+    <framework src="QuartzCore.framework" />
+  </platform>
+</plugin>
