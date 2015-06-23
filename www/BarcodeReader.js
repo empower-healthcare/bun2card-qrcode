@@ -3,9 +3,8 @@ var BarcodeReader = function(){};
 BarcodeReader.prototype.scan =  function(successCallback, errorCallback, options) {
     
     function onSuccess(data) {
-        console.log("DATA=" + data);
         if (typeof successCallback === 'function') {
-            successCallback();
+            successCallback(data);
         }
     }
 
