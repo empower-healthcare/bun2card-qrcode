@@ -126,11 +126,12 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         button.tag = 1;
         button.frame = CGRectMake(0, 0, 200, 60);
-        button.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        button.backgroundColor = [UIColor colorWithRed:255/255.0 green:241/255.0 blue:108/255.0 alpha:0];
         button.clipsToBounds = YES;
         [button setTitle:@"キャンセル" forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont fontWithName:@"AppleGothic" size:30.0]; //（６）ボタン文字タイプ
         button.titleLabel.textColor = [UIColor colorWithRed:71/255.0 green:67/255.0 blue:66/255.0 alpha:1.0]; // （７）ボタン文字色
+        [button setTitleColor:[UIColor colorWithRed:71/255.0 green:67/255.0 blue:66/255.0 alpha:1.0] forState:UIControlStateNormal];
         [button addTarget:self
                    action:@selector(cancelView:)
          forControlEvents:UIControlEventTouchUpInside];
