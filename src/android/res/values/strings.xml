@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">RD_EPARKデジタル診察券</string>
+    <string name="app_name">EPARKデジタル診察券</string>
     <string name="launcher_name">@string/app_name</string>
     <string name="activity_name">@string/launcher_name</string>
     <string name="cdv_br_msg_textMessage">QRコードをカメラに向けてください</string>

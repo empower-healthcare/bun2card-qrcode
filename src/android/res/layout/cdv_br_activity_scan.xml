@@ -1,81 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="jp.xaas.bun2card.plugin.barcodereader.BarcodeReaderActivity" >
 
-    <RelativeLayout
+    <SurfaceView
+        android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="fill" >
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
 
-        <SurfaceView
-            android:id="@+id/preview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
+    <TextView
+        android:id="@+id/textMessage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/cdv_br_message"
+        android:gravity="center"
+        android:text="@string/cdv_br_msg_textMessage"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/textMessage"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/cdv_br_message"
-            android:gravity="center"
-            android:text="@string/cdv_br_msg_textMessage"
-            android:textColor="#00008C"
-            android:textSize="25sp" />
+    <TextView
+        android:id="@+id/textRectangle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonArea"
+        android:layout_below="@+id/textMessage"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/cdv_br_rectangle" />
 
-        <TextView
-            android:id="@+id/textRectangle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/buttonArea"
-            android:layout_below="@+id/textMessage"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/cdv_br_rectangle" />
+    <FrameLayout
+        android:id="@+id/buttonArea"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp" >
 
-        <FrameLayout
-            android:id="@+id/buttonArea"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp" >
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:background="@drawable/cdv_br_button_base1"
+            android:text="@string/cdv_br_btn_cancel"
+            android:textColor="#474342"
+            android:textSize="20sp" />
+    </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/cdv_br_button_base1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="1dp"
-                android:background="@drawable/cdv_br_button_base2" />
-
-            <Button
-                android:id="@+id/buttonCancel"
-                android:layout_width="140dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:background="#00FFFFFF"
-                android:text="@string/cdv_br_btn_cancel"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-        </FrameLayout>
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>
