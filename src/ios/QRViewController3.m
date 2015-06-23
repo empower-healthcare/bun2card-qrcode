@@ -99,11 +99,11 @@
         // メッセージ
         UILabel *msgLabel = [[UILabel alloc] init];
         msgLabel.tag = 3;
-        msgLabel.backgroundColor = [UIColor colorWithRed:0.21 green:0.39 blue:0.55 alpha:1]; //（１）メッセージ背景色
+        msgLabel.backgroundColor = [UIColor colorWithRed:134/255.0 green:192/255.0 blue:63/255.0 alpha:1]; //（１）メッセージ背景色
         msgLabel.layer.cornerRadius = 18.0f;
         msgLabel.clipsToBounds = YES;
         msgLabel.font = [UIFont fontWithName:@"AppleGothic" size:12.0]; //（２）メッセージ文字タイプ
-        msgLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0.55 alpha:1]; // （３）メッセージ文字色
+        msgLabel.textColor = [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:1]; // （３）メッセージ文字色
         msgLabel.textAlignment = NSTextAlignmentCenter;
         msgLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
         [self.view addSubview:msgLabel];
@@ -111,14 +111,14 @@
         // ボタン
         CALayer *buttonLayer1 = [CALayer layer];
         buttonLayer1.frame = CGRectMake(0, 0, 200, 60);
-        buttonLayer1.backgroundColor = [UIColor colorWithRed:0.21 green:0.39 blue:0.55 alpha:1].CGColor; //（４）ボタン背景色１
+        buttonLayer1.backgroundColor = [UIColor colorWithRed:255/255.0 green:241/255.0 blue:108/255.0 alpha:1].CGColor; //（４）ボタン背景色１
         buttonLayer1.cornerRadius = 18.0f;
         [self.view.layer addSublayer:buttonLayer1];
         [self.view.layer setValue:buttonLayer1 forKey:@"buttonLayer1"];
         
         CALayer *buttonLayer2 = [CALayer layer];
         buttonLayer2.frame = CGRectMake(0, 0, 196, 30);
-        buttonLayer2.backgroundColor = [UIColor colorWithRed:0.28 green:0.44 blue:0.60 alpha:1].CGColor; // （５）ボタン背景色２
+        buttonLayer2.backgroundColor = [UIColor colorWithRed:255/255.0 green:241/255.0 blue:108/255.0 alpha:1].CGColor; // （５）ボタン背景色２
         buttonLayer2.cornerRadius = 15.0f;
         [self.view.layer addSublayer:buttonLayer2];
         [self.view.layer setValue:buttonLayer2 forKey:@"buttonLayer2"];
@@ -130,7 +130,7 @@
         button.clipsToBounds = YES;
         [button setTitle:@"キャンセル" forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont fontWithName:@"AppleGothic" size:30.0]; //（６）ボタン文字タイプ
-        button.titleLabel.textColor = [UIColor whiteColor]; // （７）ボタン文字色
+        button.titleLabel.textColor = [UIColor colorWithRed:71/255.0 green:67/255.0 blue:66/255.0 alpha:1.0]; // （７）ボタン文字色
         [button addTarget:self
                    action:@selector(cancelView:)
          forControlEvents:UIControlEventTouchUpInside];
