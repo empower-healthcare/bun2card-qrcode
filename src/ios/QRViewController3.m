@@ -45,10 +45,15 @@
                 break;
             }
         }
-        
+    
         NSError *error = nil;
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
-                                                                            error:&error];
+                                                                        error:&error];
+        
+        if (input == nil) {
+            [NSException raise:@"AVCaptureDeviceNotFound" format:@"カメラを起動できません。"];
+        }
+        
         [self.session addInput:input];
         
         AVCaptureMetadataOutput *output = [AVCaptureMetadataOutput new];
@@ -88,7 +93,7 @@
         preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
         [self.view.layer addSublayer:preview];
         [self.view.layer setValue:preview forKey:@"preview"];
-
+    
         // 四角表示
         CALayer *boxLayer = [CALayer layer];
         boxLayer.borderWidth = 1.0f;

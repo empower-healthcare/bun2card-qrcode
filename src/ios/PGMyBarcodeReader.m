@@ -65,10 +65,10 @@
     @finally {
         if (!view.viewControllerStart || err) {
             // 画面を正常終了させるために、画面表示中の場合クローズ処理をタイマー起動
-            if (view.isBeingPresented) {
+            //if (view.isBeingPresented) {
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                           @1, @"status",
-                                          @"読み取り画面の表示でエラーが発生しました。", @"msg", nil];
+                                          @"カメラを起動できませんでした。", @"msg", nil];
 
                 [NSTimer scheduledTimerWithTimeInterval:1.0f
                                                  target:self
@@ -76,10 +76,10 @@
                                                userInfo:userInfo
                                                 repeats:NO
                  ];
-            } else {
-                [self closeView : @1 : @"読み取り画面の表示でエラーが発生しました。"];
-            }
-                
+//            } else {
+//                [self closeView : @1 : @"カメラを起動できませんでした。"];
+//            }
+//                
         }
     }
 }

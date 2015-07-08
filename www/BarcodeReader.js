@@ -8,9 +8,9 @@ BarcodeReader.prototype.scan =  function(successCallback, errorCallback, options
         }
     }
 
-    function onError() {
+    function onError(msg) {
         if (typeof errorCallback === 'function') {
-            errorCallback();
+            errorCallback(msg);
         }
     }
     cordova.exec(onSuccess, onError, "BarcodeReaderPlugin", "openQRReader", [1]);
