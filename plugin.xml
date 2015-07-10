@@ -34,7 +34,8 @@
     </config-file>
     <source-file src="src/android/libs/zxing-core-3.1.0.jar" target-dir="libs"/>
     <source-file src="src/android/libs/zxing-javase-3.1.0.jar" target-dir="libs"/>
-    <source-file src="src/android/libs/bun2card_barcodereader.jar" target-dir="libs"/>
+    <source-file src="src/android/jp/xaas/bun2card/plugin/FakeR.java" target-dir="src/jp/xaas/bun2card/plugin"/>
+    <source-file src="src/android/jp/xaas/bun2card/plugin/barcodereader/BarcodeReaderActivity.java" target-dir="src/jp/xaas/bun2card/plugin/barcodereader"/>
     <source-file src="src/android/jp/xaas/bun2card/plugin/barcodereader/BarcodeReaderPlugin.java" target-dir="src/jp/xaas/bun2card/plugin/barcodereader"/>
 
     <source-file src="src/android/res/layout/cdv_br_activity_scan.xml" target-dir="res/layout"/>
