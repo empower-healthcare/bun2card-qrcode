@@ -3,6 +3,7 @@ package jp.xaas.bun2card.plugin.barcodereader;
 import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import jp.xaas.bun2card.plugin.FakeR;
 import android.app.Activity;
@@ -12,12 +13,18 @@ import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -61,11 +68,20 @@ public class BarcodeReaderActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         fakeR = new FakeR(this);
 
         //setContentView(R.layout.cdv_br_activity_scan);
         setContentView(fakeR.getId("layout", "cdv_br_activity_scan"));
+        
+        // メッセージ
+        SpannableString msg1 = new SpannableString("QRコードをカメラに向けてください。");
+        msg1.setSpan(new AbsoluteSizeSpan(15, true), 0, msg1.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        SpannableString msg2 = new SpannableString("\n読み取れない場合は、少しカメラを離して読み取ってください。");
+        msg2.setSpan(new AbsoluteSizeSpan(12, true), 0, msg2.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        
+        TextView textMessage = (TextView)findViewById(fakeR.getId("id", "textMessage"));
+        textMessage.setText(TextUtils.concat(msg1, msg2));
         
         // キャンセルボタンのイベントリスナー設定
         // Button buttonCancel =(Button)findViewById(R.id.buttonCancel);
@@ -271,7 +287,7 @@ public class BarcodeReaderActivity extends Activity
         // プレビューサイズ設定
         Camera.Parameters params = mCamera.getParameters();
         List<Camera.Size> sizes = params.getSupportedPreviewSizes();
-        Camera.Size size = sizes.get(0);
+        Camera.Size size = getOptimalPreviewSize(sizes, mSurfaceView.getWidth(), mSurfaceView.getHeight());
         params.setPreviewSize(size.width, size.height);
         mCamera.setParameters(params);
 
@@ -283,7 +299,6 @@ public class BarcodeReaderActivity extends Activity
         	;
         }
         // カメラオートフォーカス設定
-        /*
         if (mTimerFocus == null) {
             mTimerFocus = new Timer(false);
             mTimerFocus.schedule(new TimerTask() {
@@ -297,12 +312,47 @@ public class BarcodeReaderActivity extends Activity
                 		Log.e(TAG, e.getMessage());
                 	}
                 }
-            }, 500, 1000); // 1秒間隔でオートフォーカス
+            }, 500, 2000); // 1秒間隔でオートフォーカス
         }
-        */
         mCamera.setOneShotPreviewCallback(this);
     }
 
+    // 最適なカメラサイズを取得します。
+    private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w,
+			int h) {
+
+		final double ASPECT_TOLERANCE = 0.1;
+		double targetRatio = (double) h / w;
+
+		if (sizes == null)
+			return null;
+
+		Camera.Size optimalSize = null;
+		double minDiff = Double.MAX_VALUE;
+
+		int targetHeight = h;
+
+		for (Camera.Size size : sizes) {
+			double ratio = (double) size.width / size.height;
+			if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
+				continue;
+			if (Math.abs(size.height - targetHeight) < minDiff) {
+				optimalSize = size;
+				minDiff = Math.abs(size.height - targetHeight);
+			}
+		}
+
+		if (optimalSize == null) {
+			minDiff = Double.MAX_VALUE;
+			for (Camera.Size size : sizes) {
+				if (Math.abs(size.height - targetHeight) < minDiff) {
+					optimalSize = size;
+					minDiff = Math.abs(size.height - targetHeight);
+				}
+			}
+		}
+		return optimalSize;
+	}
     /**
      * カメラ終了処理
      */

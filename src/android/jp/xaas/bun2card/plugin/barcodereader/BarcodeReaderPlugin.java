@@ -15,7 +15,7 @@ import android.util.Log;
  */
 public class BarcodeReaderPlugin extends CordovaPlugin {
 
-    private CallbackContext callbackContext;
+	private CallbackContext callbackContext;
     private static final String TAG = BarcodeReaderPlugin.class.getSimpleName();
     private static final String SCAN_INTENT = "jp.xaas.bun2card.plugin.barcodereader.SCAN";
     private static final int REQUEST_CODE = 10001;

@@ -51,7 +51,8 @@
                                                                         error:&error];
         
         if (input == nil) {
-            [NSException raise:@"AVCaptureDeviceNotFound" format:@"カメラを起動できません。"];
+            NSException* e = [NSException exceptionWithName:@"AVCaptureDeviceInput" reason:@"カメラを起動できません。" userInfo:nil];
+            @throw e;
         }
         
         [self.session addInput:input];
@@ -105,12 +106,34 @@
         UILabel *msgLabel = [[UILabel alloc] init];
         msgLabel.tag = 3;
         msgLabel.backgroundColor = [UIColor colorWithRed:134/255.0 green:192/255.0 blue:63/255.0 alpha:1]; //（１）メッセージ背景色
-        msgLabel.layer.cornerRadius = 18.0f;
+        msgLabel.layer.cornerRadius = 10.0f;
         msgLabel.clipsToBounds = YES;
         msgLabel.font = [UIFont fontWithName:@"AppleGothic" size:12.0]; //（２）メッセージ文字タイプ
         msgLabel.textColor = [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:1]; // （３）メッセージ文字色
         msgLabel.textAlignment = NSTextAlignmentCenter;
         msgLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
+        
+        // メッセージ
+        NSMutableAttributedString *msg1 = [[NSMutableAttributedString alloc] initWithString:@"QRコードをカメラに向けてください。"];
+        
+        [msg1 addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"AppleGothic" size:12.0] range:NSMakeRange(0, msg1.length)];
+        
+        NSMutableAttributedString *newLine =[[NSMutableAttributedString alloc] initWithString:@"\n"];
+        [newLine addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"AppleGothic" size:12.0] range:NSMakeRange(0, newLine.length)];
+        
+        NSMutableAttributedString *msg2 =[[NSMutableAttributedString alloc] initWithString:@"読み取れない場合は、少しカメラを離して読み取ってください。"];
+        [msg2 addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"AppleGothic" size:9.0] range:NSMakeRange(0, msg2.length)];
+        
+        NSMutableAttributedString *messages = [[NSMutableAttributedString alloc] init];
+        
+        [messages appendAttributedString:msg1];
+        [messages appendAttributedString:newLine];
+        [messages appendAttributedString:msg2];
+        
+        [msgLabel setNumberOfLines:0];
+        [msgLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [msgLabel setAttributedText:messages];
+        
         [self.view addSubview:msgLabel];
 
         // ボタン
@@ -265,8 +288,6 @@
     preview.frame = CGRectMake(0, 0, frameWidth, frameHeight);
     preview.connection.videoOrientation = orientation;
     
-    // メッセージ
-    msgLabel.text = @"QRコードをカメラに向けてください。";
     // ボタン背景
     buttonLayer1.frame = button.frame;
     buttonLayer2.frame = CGRectMake(button.frame.origin.x + 2,
@@ -285,6 +306,7 @@
         [delegate closeView:str];
     }
     [self.session stopRunning];
+    [self.view removeFromSuperview];
 }
 
 // 画面自動回転をYESにする

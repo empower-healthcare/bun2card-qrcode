@@ -66,18 +66,18 @@
         if (!view.viewControllerStart || err) {
             // 画面を正常終了させるために、画面表示中の場合クローズ処理をタイマー起動
             //if (view.isBeingPresented) {
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          @1, @"status",
-                                          @"カメラを起動できませんでした。", @"msg", nil];
-
-                [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                                 target:self
-                                               selector:@selector(closeViewTimer:)
-                                               userInfo:userInfo
-                                                repeats:NO
-                 ];
+//                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                          @1, @"status",
+//                                          @"カメラを起動できませんでした。", @"msg", nil];
+//
+//                [NSTimer scheduledTimerWithTimeInterval:1.0f
+//                                                 target:self
+//                                               selector:@selector(closeViewTimer:)
+//                                               userInfo:userInfo
+//                                                repeats:NO
+//                 ];
 //            } else {
-//                [self closeView : @1 : @"カメラを起動できませんでした。"];
+                [self closeView : @1 : @"カメラを起動できませんでした。"];
 //            }
 //                
         }
@@ -88,18 +88,19 @@
 - (void) closeView : (NSString *) str {
     // 画面を正常終了させるために、画面表示中の場合クローズ処理をタイマー起動
     if (view.isBeingPresented || str) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  @0, @"status",
-                                  str, @"msg", nil];
-    
-        [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                         target:self
-                                       selector:@selector(closeViewTimer:)
-                                       userInfo:userInfo
-                                        repeats:NO
-        ];
+        [self closeView:@0 :str];
+        //        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                  @0, @"status",
+//                                  str, @"msg", nil];
+//    
+//        [NSTimer scheduledTimerWithTimeInterval:1.0f
+//                                         target:self
+//                                       selector:@selector(closeViewTimer:)
+//                                       userInfo:userInfo
+//                                        repeats:NO
+//        ];
     } else {
-        [self closeView : @0 : str];
+        [self closeView:@0 :str];
     }
 }
 
